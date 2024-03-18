@@ -20,7 +20,7 @@ class UserController extends Controller
         $username = $request->input('username');
 
         if (Cache::has('login_attempts_' . $username) && Cache::get('login_attempts_' . $username) >= 3) {
-            $secondsToWait = 20;
+            $secondsToWait = 60;
             return back()->withErrors(['username' => 'Too many login attempts. Please try again in ' . $secondsToWait . ' seconds'])->onlyInput('username');
         }
 

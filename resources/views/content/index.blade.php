@@ -11,12 +11,15 @@
     <div class="flex flex-col justify-center items-center mt-14">
         <p class="text-lg mb-4">Home Page</p>
         <p class="mb-4">Logged in as {{auth()->user()->username}}</p>
-        <div>
-            <form method="POST" action="/logout">
-                @csrf
+        <div class="flex flex-row justify-center items-center mt-2 gap-4">
+            <a href="/books"><button class="bg-black text-white rounded py-1 px-1">Books</button></a>
+            <div>
+                <form method="POST" action="/logout">
+                    @csrf
 
                 <button type="submit" class="bg-black text-white rounded py-1 px-1 ">Logout</button>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 </body>

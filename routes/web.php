@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -18,6 +19,10 @@ use Illuminate\Support\Facades\Route;
 // Homepage
 
 Route::get('/', [HomeController::class, 'home'])->middleware('auth');
+
+// Books home page
+
+Route::get('/books', [BookController::class, 'index'])->middleware('auth');
 
 // Show login
 

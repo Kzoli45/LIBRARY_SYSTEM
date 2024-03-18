@@ -18,7 +18,7 @@ class BookFactory extends Factory
     {
         return [
             "author" => $this->faker->name(),
-            "title" => $this->faker->text(30),
+            "title" => substr(str_replace('.', '', $this->faker->text(30)), 0, 30),
             "publisher" => $this->faker->company(),
             "year" => $this->faker->year(),
             "release" => $this->faker->numberBetween(1, 4),
