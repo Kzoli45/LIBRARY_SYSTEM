@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
         Book::factory(10)->create();
 
         \App\Models\User::factory()->create([
-            'username' => fake()->userName(),
+            'username' => 'user1',
             'email' => fake()->safeEmail(),
             'email_verified_at' => now(),
             'password' => 'sss123',
@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         \App\Models\User::factory()->create([
-            'username' => fake()->userName(),
+            'username' => 'user2',
             'email' => fake()->safeEmail(),
             'email_verified_at' => now(),
             'password' => 'abc123',
