@@ -4,6 +4,7 @@ export default {
     "./resources/**/*.blade.php",
     "./resources/**/*.js",
     "./resources/**/*.vue",
+    "./node_modules/flowbite/**/*.js"
   ],
     theme: {
       extend: {
@@ -45,7 +46,10 @@ export default {
       'Segoe UI Emoji', 
       'Segoe UI Symbol', 
       'Noto Color Emoji'
-    ]
+    ],
+    plugins: [
+      require('flowbite/plugin')
+  ]
       }
     }
   }

@@ -7,21 +7,55 @@
     @vite('resources/css/app.css')
     <title>Books</title>
 </head>
-<body>
-    @unless (count($books) == 0)
-        <div class="flex flex-col justify-center items-center mt-10 gap-3">
-            @foreach ($books as $book)
-                <div class="flex flex-row justify-center items-center gap-4">
-                    {{$book->author}}
-                    <p>-</p>
-                    {{$book->title}}  ({{$book->ISBN}})
-                </div>
-            @endforeach
-                <a href="/"><button class="bg-black text-white rounded py-1 px-1 w-20 mt-5">Back</button></a>
-            @else
-                <p>No books found</p> 
-                <a href="/"><button class="bg-black text-white rounded py-1 px-1 w-20 mt-5">Back</button></a>
-        </div>
-    @endunless
+<body class=" dark:bg-gray-900">
+    <x-sidebar/>
+    <div class="flex flex-row justify-center items-center ml-40 pt-4 sm:rounded-lg pb-4">
+        <table class="text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        Author
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Title
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        ISBN
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Quantity
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Edit
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @unless (count($books) == 0)
+                @foreach ($books as $book)
+                    <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            {{$book->author}}
+                            <td class="px-6 py-4">
+                                {{$book->title}}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{$book->ISBN}}
+                            </td>
+                            <td class="px-6 py-4 text-center">
+                                {{$book->quantity}}
+                            </td>
+                            <td class="px-6 py-4">
+                                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Manage</a>
+                            </td>
+                        </th>
+                    </tr>
+                @endforeach
+                @else
+                    No Books Found
+                @endunless
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

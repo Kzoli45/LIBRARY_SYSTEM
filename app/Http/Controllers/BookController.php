@@ -9,8 +9,12 @@ class BookController extends Controller
 {
     public function index()
     {
-        return view('content.books', [
-            'books' => Book::latest()->get()
-        ]);
+        $books = Book::latest()->get();
+
+        foreach ($books as $book) {
+            $book->quantity = Book::where('title', $book->title)->count();
+        }
+
+        return view('content.books', compact('books'));
     }
 }
