@@ -24,6 +24,14 @@ Route::get('/', [HomeController::class, 'home'])->middleware('auth');
 
 Route::get('/books', [BookController::class, 'index'])->middleware('auth');
 
+// Show createbook form
+
+Route::get('/books/create', [BookController::class, 'showBookCreate'])->middleware('auth');
+
+// Store new book
+
+Route::post('/books/new', [BookController::class, 'storeNewBook'])->middleware('auth');
+
 // Show login
 
 Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
