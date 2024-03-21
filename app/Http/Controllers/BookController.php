@@ -13,7 +13,9 @@ class BookController extends Controller
         $books = Book::latest()->get();
 
         foreach ($books as $book) {
-            $book->quantity = Book::where('title', $book->title)->count();
+            $book->quantity = Book::where('title', $book->title)
+                ->where('author', $book->author)
+                ->count();
         }
 
         return view('content.books', compact('books'));
