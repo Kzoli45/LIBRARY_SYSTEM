@@ -32,6 +32,10 @@ Route::get('/books/create', [BookController::class, 'showBookCreate'])->middlewa
 
 Route::post('/books/new', [BookController::class, 'storeNewBook'])->middleware('auth');
 
+// Show single book
+
+Route::get('/books/manage', [BookController::class, 'showManage'])->middleware('auth')->name('manage.book');
+
 // Show login
 
 Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');

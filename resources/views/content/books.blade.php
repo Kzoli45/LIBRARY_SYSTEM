@@ -20,7 +20,7 @@
                         Title
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        ISBN
+                        Year
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Quantity
@@ -39,14 +39,14 @@
                             <td class="px-6 py-4">
                                 {{$book->title}}
                             </td>
-                            <td class="px-6 py-4">
-                                {{$book->ISBN}}
+                            <td class="px-6 py-4 text-center">
+                                {{$book->year}}
                             </td>
                             <td class="px-6 py-4 text-center">
                                 {{$book->quantity}}
                             </td>
                             <td class="px-6 py-4">
-                                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Manage</a>
+                                <a href="{{ route('manage.book', ['author' => $book->author, 'title' => $book->title, 'year' => $book->year]) }}"class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Manage</a>
                             </td>
                         </th>
                     </tr>
