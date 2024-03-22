@@ -36,6 +36,20 @@ Route::post('/books/new', [BookController::class, 'storeNewBook'])->middleware('
 
 Route::get('/books/manage', [BookController::class, 'showManage'])->middleware('auth')->name('manage.book');
 
+// Show Edit form
+
+Route::get('/books/{book}/edit', [BookController::class, 'showEdit'])->middleware('auth');
+
+// Edit Book
+
+Route::patch('/books/{book}', [BookController::class, 'editBook'])->middleware(('auth'));
+
+// Delete book
+
+Route::delete('/books/{book}', [BookController::class, 'destroy'])->middleware('auth');
+
+// Delete All
+
 // Show login
 
 Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');

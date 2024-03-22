@@ -8,7 +8,7 @@
 </head>
 <body class=" dark:bg-gray-900">
     <x-sidebar/>
-<div class="flex flex-row justify-center items-center ml-40 pl-14 pt-4 sm:rounded-lg pb-4">
+<div class="flex flex-col justify-center items-center ml-40 pl-14 pt-4 sm:rounded-lg pb-4 gap-8">
     <table class="text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -57,16 +57,36 @@
                             @endif
                         </td>
                         <td class="px-6 py-4">
-                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                            <a href="/books/{{$copy->id}}/edit" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
                         </td>
                         <td class="px-6 py-4">
-                            <a href="#" class="font-medium text-blue-600 dark:text-red-500 hover:underline">Delete</a>
+                        <form  method="POST" action="/books/{{$copy->id}}">
+                            @csrf
+                            @method('DELETE')
+                            <input type="hidden" name="book_id" value=""> 
+                            <button type="submit" onclick="event.preventDefault(); confirmDelete({{$copy->takeable}}, {{$copy->id}}, this.form)" class="font-medium text-blue-600 dark:text-red-500 hover:underline">Delete</button>
+                        </form>
                         </td>
                     </th>
                 </tr>
             @endforeach
         </tbody>
     </table>
-</div>
+        <button type="button" class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-red-500 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">DELETE ALL</button>
+    
+    
+<script>
+    function confirmDelete(takeable, bookId, form) {
+        if (takeable == 1) {
+            if (confirm("Are you sure you want to delete this book?")) {
+                form.querySelector('input[name="book_id"]').value = bookId;
+                form.submit();
+            }
+        } else {
+            alert("You can only delete books that are currently avaliable!");
+        }
+    }
+</script>
+
 </body>
 </html>

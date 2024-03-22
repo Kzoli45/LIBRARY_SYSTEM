@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use Illuminate\Http\Request;
+use Illuminate\Routing\RedirectController;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 
@@ -57,5 +58,32 @@ class BookController extends Controller
             ->get();
 
         return view('content.manage', compact('books', 'copies'));
+    }
+
+    public function showEdit(Book $book)
+    {
+        return view('content.edit', ['book' => $book]);
+    }
+
+    public function editBook(Request $request, Book $book)
+    {
+        $formFields = $request->validate([
+            'author' => 'required',
+            'title' => 'required',
+            'publisher' => 'required',
+            'year' => ['required', 'numeric'],
+            'release' => ['required', 'numeric'],
+            'ISBN' => ['required', 'numeric', 'digits:8'],
+            'takeable' => 'required'
+        ]);
+
+        $book->update($formFields);
+        return redirect(route('manage.book', ['author' => $book->author, 'title' => $book->title, 'year' => $book->year]));
+    }
+
+    public function destroy(Book $book)
+    {
+        $book->delete();
+        return redirect('/books');
     }
 }
