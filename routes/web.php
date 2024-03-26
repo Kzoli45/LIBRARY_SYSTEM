@@ -49,7 +49,7 @@ Route::patch('/books/{book}', [BookController::class, 'editBook'])->middleware((
 Route::delete('/books/{book}', [BookController::class, 'destroy'])->middleware('auth');
 
 // Delete All
-
+Route::delete('/books/delete/{book}', [BookController::class, 'destroyAll'])->middleware('auth')->name('books.delete');
 // Show login
 
 Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');

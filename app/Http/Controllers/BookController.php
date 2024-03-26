@@ -83,7 +83,36 @@ class BookController extends Controller
 
     public function destroy(Book $book)
     {
-        $book->delete();
-        return redirect('/books');
+        if ($book->takeable == 0) {
+            return back()->with('error', 'Only books that are currently available can be deleted!');
+        } else {
+            $book->delete();
+            return redirect('/books');
+        }
+    }
+
+    public function destroyAll(Request $request)
+    {
+        $title = $request->input('title');
+        $author = $request->input('author');
+        $year = $request->input('year');
+
+        $countBooksToDelete = Book::where('author', $author)
+            ->where('title', $title)
+            ->where('year', $year)
+            ->where('takeable', 1)
+            ->count();
+
+        if ($countBooksToDelete == 0) {
+            return back()->with('error', 'Only books that are currently available can be deleted!');
+        } else {
+            Book::where('author', $author)
+                ->where('title', $title)
+                ->where('year', $year)
+                ->where('takeable', 1)
+                ->delete();
+
+            return redirect('/books');
+        }
     }
 }

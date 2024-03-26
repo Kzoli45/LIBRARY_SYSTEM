@@ -64,7 +64,7 @@
                             @csrf
                             @method('DELETE')
                             <input type="hidden" name="book_id" value=""> 
-                            <button type="submit" onclick="event.preventDefault(); confirmDelete({{$copy->takeable}}, {{$copy->id}}, this.form)" class="font-medium text-blue-600 dark:text-red-500 hover:underline">Delete</button>
+                            <button type="submit" class="font-medium text-blue-600 dark:text-red-500 hover:underline">Delete</button>
                         </form>
                         </td>
                     </th>
@@ -72,21 +72,29 @@
             @endforeach
         </tbody>
     </table>
-        <button type="button" class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-red-500 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">DELETE ALL</button>
-    
-    
-<script>
-    function confirmDelete(takeable, bookId, form) {
-        if (takeable == 1) {
-            if (confirm("Are you sure you want to delete this book?")) {
-                form.querySelector('input[name="book_id"]').value = bookId;
-                form.submit();
+    <form method="POST" action="{{ route('books.delete', ['book' => 'placeholder']) }}">
+        @csrf
+        @method('DELETE')
+        <input type="hidden" name="title" value="{{ $copy->title }}">
+        <input type="hidden" name="author" value="{{ $copy->author }}">
+        <input type="hidden" name="year" value="{{ $copy->year }}">
+        <button type="submit" class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-red-500 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">DELETE ALL</button>
+    </form>
+
+    @if(session('error'))
+    <div id="error-message" class="alert alert-danger text-red-600 ease-out">
+        {{ session('error') }}
+    </div>
+    @endif
+
+    <script>
+        setTimeout(function () {
+            var errorMessage = document.getElementById('error-message');
+            if (errorMessage) {
+                errorMessage.style.display = 'none';
             }
-        } else {
-            alert("You can only delete books that are currently avaliable!");
-        }
-    }
-</script>
+        }, 2000);
+    </script>
 
 </body>
 </html>

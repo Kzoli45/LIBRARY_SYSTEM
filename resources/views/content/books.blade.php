@@ -9,7 +9,9 @@
 </head>
 <body class=" dark:bg-gray-900">
     <x-sidebar/>
-    <div class="flex flex-row justify-center items-center ml-40 pt-4 sm:rounded-lg pb-4">
+
+    <div class="flex flex-col justify-center items-center ml-40 pt-4 sm:rounded-lg pb-4 gap-4">
+        @include('partials._search')
         <table class="text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
