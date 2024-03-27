@@ -10,11 +10,12 @@ use Illuminate\Support\Facades\DB;
 
 class BookController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $books = Book::select('title', 'author', 'year',  DB::raw('COUNT(*) as quantity'))
             ->groupBy('title', 'author', 'year')
             ->latest()
+            ->filters($request->all())
             ->get();
 
         return view('content.books', compact('books'));
