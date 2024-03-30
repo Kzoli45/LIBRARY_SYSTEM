@@ -9,6 +9,7 @@
 </head>
 <body>
     <form action="/books" method="GET">
+        @csrf
     <div class="flex flex-row justify-center items-center mb-4">
         <select id="categorySelect" name="category" class=" pr-4 border border-r-4 border-gray-700 text-white border-r-gray-500 bg-gray-700 rounded-l-none px-4 py-2 appearance-none focus:outline-none">
             <option value="author">Author</option>

@@ -19,4 +19,9 @@ class Book extends Model
             $query->where($category, 'like', '%' . $search . '%');
         }
     }
+
+    public function lendings()
+    {
+        return $this->hasMany(Lending::class);
+    }
 }
