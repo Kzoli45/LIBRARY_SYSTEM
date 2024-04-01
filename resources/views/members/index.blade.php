@@ -42,6 +42,9 @@
                         <th scope="col" class="px-6 py-3">
                             Contact
                         </th>
+                        <th scope="col" class="px-6 py-3">
+                            Manage
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -58,6 +61,9 @@
                         </td>
                         <td class="px-6 py-4">
                             {{$member->contact}}
+                        </td>
+                        <td class="px-6 py-4">
+                            <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Manage</a>
                         </td>
                     </tr>
                     @endforeach
