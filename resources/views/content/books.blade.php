@@ -29,7 +29,7 @@
                         Quantity
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Edit
+                        Manage
                     </th>
                 </tr>
             </thead>

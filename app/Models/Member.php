@@ -11,6 +11,15 @@ class Member extends Model
 
     protected $fillable = ["name", "postcode", "city", "street", "door", "type", "contact"];
 
+    public function scopeFilters($query, array $filters)
+    {
+        if ($filters['search'] ?? false) {
+            $search = $filters['search'];
+            $category = $filters['category'];
+            $query->where($category, 'like', '%' . $search . '%');
+        }
+    }
+
     public function lendings()
     {
         return $this->hasMany(Lending::class);

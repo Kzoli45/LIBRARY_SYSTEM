@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MemberController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -50,6 +51,11 @@ Route::delete('/books/{book}', [BookController::class, 'destroy'])->middleware('
 
 // Delete All
 Route::delete('/books/delete/{book}', [BookController::class, 'destroyAll'])->middleware('auth')->name('books.delete');
+
+// show members
+
+Route::get('/members', [MemberController::class, 'index'])->middleware('auth');
+
 // Show login
 
 Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
