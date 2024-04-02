@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use App\Models\Member;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -70,5 +71,20 @@ class MemberController extends Controller
         $member->delete();
 
         return redirect('/members');
+    }
+
+    public function showAssign(Request $request, $bookId)
+    {
+        $members = Member::filters($request->all())->latest()->get();
+
+        return view('members.available', compact('members', 'bookId'));
+    }
+
+    public function showAssignForm($bookId, $memberId)
+    {
+        $book = Book::findOrFail($bookId);
+        $member = Member::findOrFail($memberId);
+
+        return view('members.loan', compact('book', 'member'));
     }
 }

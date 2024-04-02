@@ -77,6 +77,14 @@ Route::get('/members/{member}/edit', [MemberController::class, 'showEditForm'])-
 
 Route::patch('/members/{member}', [MemberController::class, 'update'])->middleware('auth');
 
+// Show members for assign
+
+Route::get('/books/{books}/assign', [MemberController::class, 'showAssign'])->middleware('auth');
+
+// show assign form
+
+Route::get('/books/{bookId}/assign/{memberId}/loan', [MemberController::class, 'showAssignForm'])->name('show.assign.form')->middleware('auth');
+
 //Delete Member
 
 Route::delete('/members/{member}', [MemberController::class, 'destroy'])->middleware('auth');

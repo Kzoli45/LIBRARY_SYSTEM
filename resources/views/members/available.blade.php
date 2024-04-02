@@ -63,7 +63,7 @@
                             {{$member->contact}}
                         </td>
                         <td class="px-6 py-4 text-center">
-                            <a href="members/{{$member->id}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Manage</a>
+                            <a href="{{ route('show.assign.form', ['bookId' => $bookId, 'memberId' => $member->id]) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Assign</a>
                         </td>
                     </tr>
                     @endforeach

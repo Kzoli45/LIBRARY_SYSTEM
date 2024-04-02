@@ -25,12 +25,12 @@
             <address class="text-sm text-gray-500 dark:text-gray-400 capitalize">{{$member->street}} {{$member->door}}</address>
             <span class="text-sm text-gray-500 dark:text-gray-400 capitalize">{{$member->contact}}</span>
         </div>
-        <div class="flex mt-2 md:mt-6">
-            <a href="/members/{{$member->id}}/edit" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Edit Details</a>
+        <div class="flex mt-2 md:mt-6 gap-1">
+            <a href="/members/{{$member->id}}/edit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Edit Details</a>
             <form method="POST" action="/members/{{$member->id}}">
                 @csrf
-                @method('DELETE');
-                <button type="submit" class="py-2 px-4 ms-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-red-500 dark:border-gray-600 dark:hover:text-red-500 dark:hover:bg-gray-700">Delete Member</button>
+                @method('DELETE')
+                <button type="submit" class="py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-red-500 dark:border-gray-600 dark:hover:text-red-500 dark:hover:bg-gray-700">Delete Member</button>
             </form>
             
         </div>
