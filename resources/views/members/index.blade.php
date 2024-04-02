@@ -63,7 +63,7 @@
                             {{$member->contact}}
                         </td>
                         <td class="px-6 py-4">
-                            <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Manage</a>
+                            <a href="members/{{$member->id}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Manage</a>
                         </td>
                     </tr>
                     @endforeach

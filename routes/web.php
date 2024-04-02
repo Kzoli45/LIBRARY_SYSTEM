@@ -4,6 +4,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\UserController;
+use Database\Factories\MemberFactory;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -55,6 +56,30 @@ Route::delete('/books/delete/{book}', [BookController::class, 'destroyAll'])->mi
 // show members
 
 Route::get('/members', [MemberController::class, 'index'])->middleware('auth');
+
+// Show Members Create form
+
+Route::get('/members/create', [MemberController::class, 'showCreateForm'])->middleware('auth');
+
+// Store new member
+
+Route::post('/members/new', [MemberController::class, 'storeNewMember'])->middleware('auth');
+
+// Show single member
+
+Route::get('/members/{member}', [MemberController::class, 'show'])->middleware('auth');
+
+// Show member edit form
+
+Route::get('/members/{member}/edit', [MemberController::class, 'showEditForm'])->middleware('auth');
+
+// Edit Member
+
+Route::patch('/members/{member}', [MemberController::class, 'update'])->middleware('auth');
+
+//Delete Member
+
+Route::delete('/members/{member}', [MemberController::class, 'destroy'])->middleware('auth');
 
 // Show login
 
