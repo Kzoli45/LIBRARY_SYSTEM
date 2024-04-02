@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Lending extends Model
 {
+    protected $fillable = ["book_id", "member_id", "taken_date", "return_date", "is_active"];
+
     use HasFactory;
 
     public function book()

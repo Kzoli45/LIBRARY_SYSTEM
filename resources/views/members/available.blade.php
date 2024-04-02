@@ -72,13 +72,13 @@
             @else
             <h1 class="text-red-500">No Members Found</h1>
             @endif
-        </div>
 
-        @if(session('error'))
-        <div id="error-message" class="alert alert-danger text-red-600 ease-out">
-        {{ session('error') }}
+            @if(session('error'))
+            <div id="error-message" class="alert alert-danger text-red-600 ease-out">
+            {{ session('error') }}
+            </div>
+            @endif
         </div>
-        @endif
 
         <script>
             setTimeout(function () {

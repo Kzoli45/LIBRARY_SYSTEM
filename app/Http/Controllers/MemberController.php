@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
-use App\Models\Lending;
 use App\Models\Member;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
-use App\Models\LibraryMember;
+use App\Models\Lending;
 use App\Models\Student;
 use App\Models\Teacher;
-use App\Models\ForeignMember;
 use App\Models\OtherMember;
+use Illuminate\Http\Request;
+use App\Models\ForeignMember;
+use App\Models\LibraryMember;
+use Carbon\Carbon;
+use Illuminate\Validation\Rule;
 
 class MemberController extends Controller
 {
@@ -114,11 +115,49 @@ class MemberController extends Controller
                 break;
         }
 
-        $memberLoanCount = Lending::where('member_id', $member->id)->where('is_active', true)->count();
-        if ($memberLoanCount > $newMember->getMaxBooks()) {
+        $memberLoanCount = Lending::where('member_id', $member->id)->where('is_active', 1)->count();
+        if ($memberLoanCount >= $newMember->getMaxBooks()) {
             return back()->with('error', 'This member has exceeded their limit!');
         } else {
             return view('members.loan', compact('book', 'member'));
         }
+    }
+
+    public function store($book, $member, Request $request)
+    {
+        $currentBook = Book::findOrFail($book);
+        $currentMember = Member::findOrFail($member);
+
+        $type = $currentMember->type;
+
+        switch ($type) {
+            case 'student':
+                $newMember = new Student();
+                break;
+            case 'teacher':
+                $newMember = new Teacher();
+                break;
+            case 'foreign':
+                $newMember = new ForeignMember();
+                break;
+            case 'other':
+                $newMember = new OtherMember();
+                break;
+        }
+
+        $loanDuration = $newMember->getLoanDuration();
+        $startDate = Carbon::createFromFormat('Y-m-d', $request->input('startdate'));
+        $returnDate = $startDate->copy()->addDays($loanDuration);
+
+        Lending::create([
+            'book_id' => $book,
+            'member_id' => $member,
+            'taken_date' => $startDate,
+            'return_date' => $returnDate
+        ]);
+
+        $currentBook->update(['takeable' => 0]);
+
+        return redirect('/books');
     }
 }

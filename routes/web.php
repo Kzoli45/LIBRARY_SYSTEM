@@ -89,6 +89,10 @@ Route::get('/books/{bookId}/assign/{memberId}/loan', [MemberController::class, '
 
 Route::delete('/members/{member}', [MemberController::class, 'destroy'])->middleware('auth');
 
+// Register loan
+
+Route::post('/lending/{book}/{member}', [MemberController::class, 'store'])->name('lending.store')->middleware('auth');
+
 // Show login
 
 Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
