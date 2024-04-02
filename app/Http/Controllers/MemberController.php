@@ -3,9 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Lending;
 use App\Models\Member;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use App\Models\LibraryMember;
+use App\Models\Student;
+use App\Models\Teacher;
+use App\Models\ForeignMember;
+use App\Models\OtherMember;
 
 class MemberController extends Controller
 {
@@ -75,9 +81,15 @@ class MemberController extends Controller
 
     public function showAssign(Request $request, $bookId)
     {
-        $members = Member::filters($request->all())->latest()->get();
+        $book = Book::findOrFail($bookId);
 
-        return view('members.available', compact('members', 'bookId'));
+        if ($book->takeable == 0) {
+            return back()->with('error', 'This book is currently loaned out!');
+        } else {
+            $members = Member::filters($request->all())->latest()->get();
+
+            return view('members.available', compact('members', 'bookId'));
+        }
     }
 
     public function showAssignForm($bookId, $memberId)
@@ -85,6 +97,28 @@ class MemberController extends Controller
         $book = Book::findOrFail($bookId);
         $member = Member::findOrFail($memberId);
 
-        return view('members.loan', compact('book', 'member'));
+        $type = $member->type;
+
+        switch ($type) {
+            case 'student':
+                $newMember = new Student();
+                break;
+            case 'teacher':
+                $newMember = new Teacher();
+                break;
+            case 'foreign':
+                $newMember = new ForeignMember();
+                break;
+            case 'other':
+                $newMember = new OtherMember();
+                break;
+        }
+
+        $memberLoanCount = Lending::where('member_id', $member->id)->where('is_active', true)->count();
+        if ($memberLoanCount > $newMember->getMaxBooks()) {
+            return back()->with('error', 'This member has exceeded their limit!');
+        } else {
+            return view('members.loan', compact('book', 'member'));
+        }
     }
 }

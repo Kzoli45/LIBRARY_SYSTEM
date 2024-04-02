@@ -73,6 +73,21 @@
             <h1 class="text-red-500">No Members Found</h1>
             @endif
         </div>
+
+        @if(session('error'))
+        <div id="error-message" class="alert alert-danger text-red-600 ease-out">
+        {{ session('error') }}
+        </div>
+        @endif
+
+        <script>
+            setTimeout(function () {
+                var errorMessage = document.getElementById('error-message');
+                if (errorMessage) {
+                    errorMessage.style.display = 'none';
+                }
+            }, 2000);
+        </script>
     </body>
 </body>
 </html>

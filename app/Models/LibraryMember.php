@@ -26,35 +26,3 @@ class LibraryMember extends Model
         return $this->loanDuration;
     }
 }
-
-class Student extends LibraryMember
-{
-    public function __construct()
-    {
-        parent::__construct(5, 60);
-    }
-}
-
-class Teacher extends LibraryMember
-{
-    public function __construct()
-    {
-        parent::__construct(999, 365);
-    }
-}
-
-class ForeignMember extends LibraryMember
-{
-    public function __construct()
-    {
-        parent::__construct(4, 30);
-    }
-}
-
-class OtherMember extends LibraryMember
-{
-    public function __construct()
-    {
-        parent::__construct(2, 14);
-    }
-}
