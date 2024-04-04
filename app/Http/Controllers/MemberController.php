@@ -178,4 +178,18 @@ class MemberController extends Controller
             return back()->with('error', 'This member has not loaned out any books yet!');
         }
     }
+
+    public function showActive(Member $member)
+    {
+        $lendings = Lending::with('book', 'member')->where('is_active', 1)->where('member_id', $member->id)->latest()->get();
+
+        return view('lendings.active', compact('lendings'));
+    }
+
+    public function showReturned(Member $member)
+    {
+        $lendings = Lending::with('book', 'member')->where('is_active', 0)->where('member_id', $member->id)->latest()->get();
+
+        return view('lendings.returned', compact('lendings'));
+    }
 }

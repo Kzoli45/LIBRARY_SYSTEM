@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite('resources/css/app.css')
-    <title>Loan history</title>
+    <title>Returned</title>
 </head>
 <body class="dark:bg-gray-900">
     <x-sidebar/>
 
     <div class="flex flex-col justify-center items-center ml-40 pt-4 sm:rounded-lg pb-4 gap-4">
         @if (count($lendings) > 0)
-        <h1 class="text-white mt-2 mb-4 text-xl">Loan History of <span class="font-bold">{{ $lendings->first()
+        <h1 class="text-white mt-2 mb-4 text-xl">Returned books of <span class="font-bold">{{ $lendings->first()
         ->member->name }}</span></h1>
             <table class="text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -65,14 +65,9 @@
                     @endforeach
                 </tbody>
             </table>
-            <div class="flex flex-row justify-center items-center gap-4 mt-4">
-                <a href="/lendings/{{$lending->member->id}}/active" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"><span class="font-semibold text-blue-600 text-md">View Active Only</span></a>
-                <a href="/lendings/{{$lending->member->id}}/returned" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"><span class="font-semibold text-blue-600 text-md">View Returned Only</span></a>
-            </div>
             @else
             <h1 class="text-red-500">No Lendings Found</h1>
             @endif
-
     </div>
 </body>
 </html>

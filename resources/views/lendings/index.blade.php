@@ -10,7 +10,7 @@
 <body class="dark:bg-gray-900">
     <x-sidebar/>
 
-    <div class="flex flex-col justify-center items-center ml-40 pt-4 sm:rounded-lg pb-4 gap-4">
+    <div class="flex flex-col justify-center items-center ml-44 pt-4 sm:rounded-lg pb-4 gap-4">
         @if (count($lendings) > 0)
             <table class="text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -29,6 +29,9 @@
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Put back
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            View All
                         </th>
                     </tr>
                 </thead>
@@ -58,6 +61,9 @@
                         </td>
                         <td class="px-6 py-4 text-center">
                             <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Put back</a>
+                        </td>
+                        <td class="px-6 py-4 text-center">
+                            <a href="/lendings/{{$lending->member->id}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View All</a>
                         </td>
                     </tr>
                     @endforeach

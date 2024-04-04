@@ -102,6 +102,14 @@ Route::get('/lendings', [MemberController::class, 'showLendings'])->middleware('
 
 Route::get('/lendings/{member}', [MemberController::class, 'showMemberLendings'])->name('member.lendings')->middleware('auth');
 
+// Display active lendings
+
+Route::get('/lendings/{member}/active', [MemberController::class, 'showActive'])->middleware('auth');
+
+// display returnedlendings
+
+Route::get('/lendings/{member}/returned', [MemberController::class, 'showReturned'])->middleware('auth');
+
 // Show login
 
 Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
