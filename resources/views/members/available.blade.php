@@ -13,7 +13,7 @@
     
         <div class="flex flex-col justify-center items-center ml-40 pt-4 sm:rounded-lg pb-4 gap-4">
 
-            <form action="/members" method="GET">
+            <form action="/books/{{$bookId}}/assign" method="GET">
                 @csrf
             <div class="flex flex-row justify-center items-center mb-4">
                 <select id="categorySelect" name="category" class=" pr-4 border border-r-4 border-gray-700 text-white border-r-gray-500 bg-gray-700 rounded-l-none px-4 py-2 appearance-none focus:outline-none">

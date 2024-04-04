@@ -4,6 +4,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\UserController;
+use App\Models\Member;
 use Database\Factories\MemberFactory;
 use Illuminate\Support\Facades\Route;
 
@@ -92,6 +93,14 @@ Route::delete('/members/{member}', [MemberController::class, 'destroy'])->middle
 // Register loan
 
 Route::post('/lending/{book}/{member}', [MemberController::class, 'store'])->name('lending.store')->middleware('auth');
+
+// Display Lendings
+
+Route::get('/lendings', [MemberController::class, 'showLendings'])->middleware('auth');
+
+// Display lendings of a member
+
+Route::get('/lendings/{member}', [MemberController::class, 'showMemberLendings'])->name('member.lendings')->middleware('auth');
 
 // Show login
 

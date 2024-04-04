@@ -160,4 +160,22 @@ class MemberController extends Controller
 
         return redirect('/books');
     }
+
+    public function showLendings()
+    {
+        $lendings = Lending::with('book', 'member')->latest()->get();
+
+        return view('lendings.index', compact('lendings'));
+    }
+
+    public function showMemberLendings(Member $member)
+    {
+        $lendings = Lending::with('book', 'member')->where('member_id', $member->id)->latest()->get();
+
+        if ($lendings->count() != 0) {
+            return view('lendings.loanhistory', compact('lendings'));
+        } else {
+            return back()->with('error', 'This member has not loaned out any books yet!');
+        }
+    }
 }

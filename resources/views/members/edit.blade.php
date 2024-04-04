@@ -63,10 +63,15 @@
                         <div>
                             <label for="type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Member</label>
                             <select id="type" name="type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                @if ($member->type == 'student')
                                 <option value="student" {{$member->type == 'student' ? 'selected' : ''}}>Student</option>
+                                @elseif ($member->type == 'teacher')
                                 <option value="teacher" {{$member->type == 'teacher' ? 'selected' : ''}}>Teacher</option>
+                                @elseif ($member->type == 'foreign')
                                 <option value="foreign" {{$member->type == 'foreign' ? 'selected' : ''}}>Student/Teacher from other university</option>
+                                @else
                                 <option value="other" {{$member->type == 'other' ? 'selected' : ''}}>Other</option>
+                                @endif
                             </select>
                             @error('type')
                             <p class="text-red-500 text-xs mt-1">{{$message}}</p>

@@ -26,6 +26,7 @@
             <span class="text-sm text-gray-500 dark:text-gray-400 capitalize">{{$member->contact}}</span>
         </div>
         <div class="flex mt-2 md:mt-6 gap-1">
+            <a href="/lendings/{{$member->id}}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Loan History</a>
             <a href="/members/{{$member->id}}/edit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Edit Details</a>
             <form method="POST" action="/members/{{$member->id}}">
                 @csrf
@@ -36,7 +37,21 @@
         </div>
     </div>
 </div>
-</div>
 
+@if(session('error'))
+<div id="error-message" class="alert alert-danger text-red-600 ease-out mt-4">
+{{ session('error') }}
+</div>
+@endif
+
+</div>
+<script>
+            setTimeout(function () {
+                var errorMessage = document.getElementById('error-message');
+                if (errorMessage) {
+                    errorMessage.style.display = 'none';
+                }
+            }, 2000);
+        </script>
 </body>
 </html>
