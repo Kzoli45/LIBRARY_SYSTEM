@@ -9,7 +9,7 @@ class Member extends Model
 {
     use HasFactory;
 
-    protected $fillable = ["name", "postcode", "city", "street", "door", "type", "contact"];
+    protected $fillable = ["name", "postcode", "city", "street", "door", "type", "contact", "deleted"];
 
     public function scopeFilters($query, array $filters)
     {

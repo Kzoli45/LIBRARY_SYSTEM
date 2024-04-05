@@ -29,9 +29,6 @@
                         <th scope="col" class="px-6 py-3">
                             Return date
                         </th>
-                        <th scope="col" class="px-6 py-3">
-                            Put back
-                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,7 +38,7 @@
                             {{$lending->book->title}}
                         </th>
                         <td class="px-6 py-4 text-center">
-                            @if ($lending->is_active = 1) 
+                            @if ($lending->is_active == 1) 
                                 Active
                             
                             @else 
@@ -52,14 +49,11 @@
                             {{$lending->taken_date}}
                         </td>
                         <td class="px-6 py-4 text-center">
-                            @if ($lending->is_active = 1) 
+                            @if ($lending->is_active == 1) 
                                 {{$lending->return_date}}
                             @else 
                             <span class="text-green-700">Returned</span>
                             @endif
-                        </td>
-                        <td class="px-6 py-4 text-center">
-                            <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Put back</a>
                         </td>
                     </tr>
                     @endforeach

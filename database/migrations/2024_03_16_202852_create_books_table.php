@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('release');
             $table->integer('ISBN');
             $table->boolean('takeable');
+            $table->boolean('deleted')->default(false);
             $table->timestamps();
         });
     }

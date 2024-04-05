@@ -15,6 +15,7 @@ class BookController extends Controller
         $books = Book::select('title', 'author', 'year',  DB::raw('COUNT(*) as quantity'))
             ->groupBy('title', 'author', 'year')
             ->latest()
+            ->where('deleted', 0)
             ->filters($request->all())
             ->get();
 
@@ -51,11 +52,13 @@ class BookController extends Controller
         $books = Book::where('author', $author)
             ->where('title', $title)
             ->where('year', $year)
+            ->where('deleted', 0)
             ->firstOrFail();
 
         $copies = Book::where('author', $author)
             ->where('title', $title)
             ->where('year', $year)
+            ->where('deleted', 0)
             ->get();
 
         return view('content.manage', compact('books', 'copies'));
@@ -87,7 +90,7 @@ class BookController extends Controller
         if ($book->takeable == 0) {
             return back()->with('error', 'Only books that are currently available can be deleted!');
         } else {
-            $book->delete();
+            $book->update(['deleted' => 1]);
             return redirect('/books');
         }
     }
@@ -111,7 +114,7 @@ class BookController extends Controller
                 ->where('title', $title)
                 ->where('year', $year)
                 ->where('takeable', 1)
-                ->delete();
+                ->update(['deleted' => 1]);
 
             return redirect('/books');
         }

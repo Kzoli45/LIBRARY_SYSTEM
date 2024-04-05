@@ -41,7 +41,7 @@
                             {{$lending->book->title}}
                         </th>
                         <td class="px-6 py-4 text-center">
-                            @if ($lending->is_active = 1) 
+                            @if ($lending->is_active == 1) 
                                 Active
                             
                             @else 
@@ -52,14 +52,17 @@
                             {{$lending->taken_date}}
                         </td>
                         <td class="px-6 py-4 text-center">
-                            @if ($lending->is_active = 1) 
+                            @if ($lending->is_active == 1) 
                                 {{$lending->return_date}}
                             @else 
                             <span class="text-green-700">Returned</span>
                             @endif
                         </td>
                         <td class="px-6 py-4 text-center">
-                            <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Put back</a>
+                            <form action="/lendings/{{$lending->id}}" method="POST">
+                                @csrf
+                                <button type="submit" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Put Back</button>
+                            </form>
                         </td>
                     </tr>
                     @endforeach
@@ -68,6 +71,28 @@
             @else
             <h1 class="text-red-500">No Lendings Found</h1>
             @endif
+
+            @if(session('message'))
+            <div id="error-message" class="alert alert-danger text-green-600 ease-out mt-4">
+            {{ session('message') }}
+            </div>
+            @endif
+
+            @if(session('error'))
+            <div id="error-message" class="alert alert-danger text-red-600 ease-out mt-4">
+            {{ session('error') }}
+            </div>
+            @endif
     </div>
+
+    <script>
+        setTimeout(function () {
+            var errorMessage = document.getElementById('error-message');
+            if (errorMessage) {
+                errorMessage.style.display = 'none';
+            }
+        }, 2000);
+    </script>
+</body>
 </body>
 </html>

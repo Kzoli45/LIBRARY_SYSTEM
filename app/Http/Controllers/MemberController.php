@@ -18,7 +18,7 @@ class MemberController extends Controller
 {
     public function index(Request $request)
     {
-        $members = Member::filters($request->all())->latest()->get();
+        $members = Member::where('deleted', 0)->filters($request->all())->latest()->get();
 
         return view('members.index', compact('members'));
     }
@@ -75,7 +75,7 @@ class MemberController extends Controller
 
     public function destroy(Member $member)
     {
-        $member->delete();
+        $member->update(['deleted' => 1]);
 
         return redirect('/members');
     }
@@ -87,7 +87,7 @@ class MemberController extends Controller
         if ($book->takeable == 0) {
             return back()->with('error', 'This book is currently loaned out!');
         } else {
-            $members = Member::filters($request->all())->latest()->get();
+            $members = Member::where('deleted', 0)->filters($request->all())->latest()->get();
 
             return view('members.available', compact('members', 'bookId'));
         }
@@ -125,6 +125,11 @@ class MemberController extends Controller
 
     public function store($book, $member, Request $request)
     {
+
+        request()->validate([
+            'startdate' => 'required'
+        ]);
+
         $currentBook = Book::findOrFail($book);
         $currentMember = Member::findOrFail($member);
 
@@ -191,5 +196,24 @@ class MemberController extends Controller
         $lendings = Lending::with('book', 'member')->where('is_active', 0)->where('member_id', $member->id)->latest()->get();
 
         return view('lendings.returned', compact('lendings'));
+    }
+
+    public function putBack(Lending $lending)
+    {
+        $lending->update(['is_active' => 0]);
+
+        $book = Book::findOrFail($lending->book_id);
+        $book->update(['takeable' => 1]);
+
+        $returnDate = Carbon::parse($lending->return_date);
+        $currentDate = Carbon::now();
+
+        $difference = $currentDate->diffInDays($returnDate);
+
+        if ($currentDate > $returnDate) {
+            return back()->with('error', 'This book was returned ' . $difference . ' day(s) late!');
+        } else {
+            return back()->with('message', 'This book was brought back in time!');
+        }
     }
 }

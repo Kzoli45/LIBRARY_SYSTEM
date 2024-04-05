@@ -68,7 +68,6 @@
                         <td class="px-6 py-4">
                         <form  method="POST" action="/books/{{$copy->id}}">
                             @csrf
-                            @method('DELETE')
                             <input type="hidden" name="book_id" value=""> 
                             <button type="submit" class="font-medium text-blue-600 dark:text-red-500 hover:underline">Delete</button>
                         </form>
@@ -80,7 +79,6 @@
     </table>
     <form method="POST" action="{{ route('books.delete', ['book' => 'placeholder']) }}">
         @csrf
-        @method('DELETE')
         <input type="hidden" name="title" value="{{ $copy->title }}">
         <input type="hidden" name="author" value="{{ $copy->author }}">
         <input type="hidden" name="year" value="{{ $copy->year }}">

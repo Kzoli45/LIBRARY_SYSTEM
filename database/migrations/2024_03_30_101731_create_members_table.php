@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('door');
             $table->string('type');
             $table->string('contact');
+            $table->boolean('deleted')->default(false);
             $table->timestamps();
         });
     }

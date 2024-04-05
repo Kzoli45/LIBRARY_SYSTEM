@@ -49,10 +49,10 @@ Route::patch('/books/{book}', [BookController::class, 'editBook'])->middleware((
 
 // Delete book
 
-Route::delete('/books/{book}', [BookController::class, 'destroy'])->middleware('auth');
+Route::post('/books/{book}', [BookController::class, 'destroy'])->middleware('auth');
 
 // Delete All
-Route::delete('/books/delete/{book}', [BookController::class, 'destroyAll'])->middleware('auth')->name('books.delete');
+Route::post('/books/delete/{book}', [BookController::class, 'destroyAll'])->middleware('auth')->name('books.delete');
 
 // show members
 
@@ -88,7 +88,7 @@ Route::get('/books/{bookId}/assign/{memberId}/loan', [MemberController::class, '
 
 //Delete Member
 
-Route::delete('/members/{member}', [MemberController::class, 'destroy'])->middleware('auth');
+Route::post('/members/{member}', [MemberController::class, 'destroy'])->middleware('auth');
 
 // Register loan
 
@@ -109,6 +109,10 @@ Route::get('/lendings/{member}/active', [MemberController::class, 'showActive'])
 // display returnedlendings
 
 Route::get('/lendings/{member}/returned', [MemberController::class, 'showReturned'])->middleware('auth');
+
+// Put back Book
+
+Route::post('/lendings/{lending}', [MemberController::class, 'putBack'])->middleware('auth');
 
 // Show login
 
