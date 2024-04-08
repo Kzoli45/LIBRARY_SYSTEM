@@ -36,7 +36,7 @@ class MemberController extends Controller
             'city' => 'required',
             'street' => 'required',
             'door' => ['required', 'numeric'],
-            'contact' => ['required', Rule::unique('members', 'contact')],
+            'contact' => ['required', 'email', Rule::unique('members', 'contact')],
             'type' => 'required'
         ]);
 
@@ -58,15 +58,21 @@ class MemberController extends Controller
 
     public function update(Request $request, Member $member)
     {
-        $formFields = $request->validate([
+        $rules = [
             'name' => 'required',
             'postcode' => ['required', 'numeric'],
             'city' => 'required',
             'street' => 'required',
             'door' => ['required', 'numeric'],
-            'contact' => 'required',
+            'contact' => ['required', 'email'],
             'type' => 'required'
-        ]);
+        ];
+
+        if ($request->contact !== $member->contact) {
+            $rules['contact'] = ['required', 'email', Rule::unique('members', 'contact')];
+        }
+
+        $formFields = $request->validate($rules);
 
         $member->update($formFields);
 

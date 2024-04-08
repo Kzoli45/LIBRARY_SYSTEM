@@ -23,7 +23,7 @@ class MemberFactory extends Factory
             "street" => $this->faker->streetAddress(),
             "door" => $this->faker->numberBetween(1, 100),
             "type" => $this->faker->randomElement(['student', 'teacher', 'foreign', 'other']),
-            "contact" => $this->faker->phoneNumber()
+            "contact" => $this->faker->email()
         ];
     }
 }

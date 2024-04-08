@@ -71,7 +71,7 @@ class BookController extends Controller
 
     public function editBook(Request $request, Book $book)
     {
-        $formFields = $request->validate([
+        $rules = [
             'author' => 'required',
             'title' => 'required',
             'publisher' => 'required',
@@ -79,7 +79,15 @@ class BookController extends Controller
             'release' => ['required', 'numeric'],
             'ISBN' => ['required', 'numeric', 'digits:8'],
             'takeable' => 'required'
-        ]);
+        ];
+
+        $currentISBN = strval($book->ISBN);
+
+        if ($currentISBN !== $request->ISBN) {
+            $rules['ISBN'] = ['required', 'numeric', 'digits:8', Rule::unique('books', 'ISBN')];
+        }
+
+        $formFields = $request->validate($rules);
 
         $book->update($formFields);
         return redirect(route('manage.book', ['author' => $book->author, 'title' => $book->title, 'year' => $book->year]));
