@@ -35,7 +35,9 @@ class BookController extends Controller
             'publisher' => 'required',
             'year' => ['required', 'numeric'],
             'release' => ['required', 'numeric'],
-            'ISBN' => ['required', 'numeric', Rule::unique('books', 'ISBN'), 'digits:8'],
+            'ISBN' => ['required', 'numeric', Rule::unique('books', 'ISBN')->where(function ($query) {
+                $query->where('deleted', 0);
+            }), 'digits:8'],
             'takeable' => 'required'
         ]);
 
@@ -84,7 +86,9 @@ class BookController extends Controller
         $currentISBN = strval($book->ISBN);
 
         if ($currentISBN !== $request->ISBN) {
-            $rules['ISBN'] = ['required', 'numeric', 'digits:8', Rule::unique('books', 'ISBN')];
+            $rules['ISBN'] = ['required', 'numeric', 'digits:8',  Rule::unique('books', 'ISBN')->where(function ($query) {
+                $query->where('deleted', 0);
+            })];
         }
 
         $formFields = $request->validate($rules);

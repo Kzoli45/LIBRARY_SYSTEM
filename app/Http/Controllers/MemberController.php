@@ -36,7 +36,13 @@ class MemberController extends Controller
             'city' => 'required',
             'street' => 'required',
             'door' => ['required', 'numeric'],
-            'contact' => ['required', 'email', Rule::unique('members', 'contact')],
+            'contact' => [
+                'required',
+                'email',
+                Rule::unique('members', 'contact')->where(function ($query) {
+                    $query->where('deleted', 0);
+                })
+            ],
             'type' => 'required'
         ]);
 
@@ -69,7 +75,9 @@ class MemberController extends Controller
         ];
 
         if ($request->contact !== $member->contact) {
-            $rules['contact'] = ['required', 'email', Rule::unique('members', 'contact')];
+            $rules['contact'] = ['required', 'email', Rule::unique('members', 'contact')->where(function ($query) {
+                $query->where('deleted', 0);
+            })];
         }
 
         $formFields = $request->validate($rules);
