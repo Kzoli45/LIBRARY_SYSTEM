@@ -57,6 +57,12 @@
                   <span class="ms-3 capitalize">GitHub</span>
                </a>
             </li>
+            <li>
+               <a href="{{url('https://drive.google.com/file/d/11OOxW0UubUTDQre-hfMx3KJ-X6atEfph/view?usp=sharing')}}" target="blank" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                  <svg  class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="2 0 20 20" fill="currentColor"><path d="m12 16 4-5h-3V4h-2v7H8z"></path><path d="M20 18H4v-7H2v7c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2v-7h-2v7z"></path></svg>
+                  <span class="ms-3 capitalize">Documentation</span>
+               </a>
+            </li>
              <li class="group cursor-pointer">
                <form id="logoutForm" action="/logout" method="post" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                    @csrf
